@@ -19,19 +19,53 @@ class User {
 
 class Users extends DataModel {
     authenticate(email, password) {
-
+        if (email === this.email && password == this.password) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     getByEmail(email) {
-
+        let obj = this.data.find(obj => obj.email == email);
+        if (obj === undefined) {
+            return null;
+        } else {
+            return obj;
+        }
     }
 
     getByMatricNumber(matricNumber) {
-
+        let obj = this.data.find(obj => obj.matricNumber == matricNumber);
+        if (obj === undefined) {
+            return null;
+        } else {
+            return obj;
+        }
     }
 
     validate(obj) {
-
+        if (obj.firstname.length == 0 ||
+             obj.lastname.length == 0 ||
+              obj.email.length == 0 ||
+               obj.password.length == 0 ||
+                obj.matricNumber.length == 0 ||
+                 obj.program.length == 0 ||
+                  obj.graduationYear.length == 0
+                  ) {
+            return false;
+        }
+        if ((this.data.find(test => test.email == obj.email)) !== undefined) {
+            return false;
+        }
+        if ((this.data.find(test => test.matricNumber == obj.matricNumber)) !== undefined) {
+            return false;
+        }
+        if (obj.password.length < 7) {
+            return false;
+        }
+        return true;
     }
 }
 
