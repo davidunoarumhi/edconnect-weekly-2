@@ -19,12 +19,14 @@ class User {
 
 class Users extends DataModel {
     authenticate(email, password) {
-        if (email === this.email && password == this.password) {
-            return true;
-        }
-        else {
+        var user = this.getByEmail(email);
+        if (user != null) {
+            if (user.password === password) {
+                return true;
+            }
             return false;
         }
+        return false;
     }
 
     getByEmail(email) {
